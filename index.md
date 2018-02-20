@@ -1,3 +1,39 @@
+На данной странице находится описание по работе с метрикой сервиса Qiberty. Она работает в схожей манере с Google.Analytics и Яндекс.Метрикой, но имеет свои отличия. На данный момент, использование возможно в 2 вариантах:
+1. Через JS-скрипт
+2. Через REST API
+
+## Начало работы
+Для начала работы вам необходимо будет создать счетчик и получить его идентефикатор.
+
+
+## Использование через JS-скрипт
+Для работы с метрикой Qiberty можно использовать реализованный нами JS-скрипт. Ниже приводится описание того, как реализовать этот вариант на вашем сайте.
+
+### 1. Размещение счетчика Qiberty на сайте
+Первым делом необходимо разместить данный JS код в блоке `<head>...</head>` на всех страницах вашего сайта:
+```js
+<!-- Qiberty counter -->
+<script type="text/javascript" async>
+  (function (d, w) {
+    var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true;
+    ts.src = "//metrics.qiberty.com/js/counter.js";
+    var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+    if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+  })(document, window);
+  window.onload = function() {
+    window.qiberty_visit(counter_id);
+  }
+</script>
+<!-- /Qiberty counter -->
+```
+Данный код делает 2 вещи
+1. Он подключает методы из реализованного JS-скрипта, и теперь вы можете вызывать их в коде страницы.
+2. При посещении страницы, он регистрирует посещение и регистирует в системе метрик Qiberty.
+
+**Заметьте,** что вместо `counter_id` вам необходимо подставить идентефикатор счетчика, полученный при его создании.
+
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/zydins/qiberty-metrics/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
